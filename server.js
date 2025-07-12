@@ -28,6 +28,10 @@ mongoose
 // Use user routes
 app.use('/api/users', userRoutes);
 
+// Use note routes
+const noteRoutes = require('./routers/noteRoutes');
+app.use('/api/notes', noteRoutes);
+
 // Run the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
