@@ -6,6 +6,9 @@ const cors = require('cors');
 // Load environment variables from .env file
 dotenv.config();
 
+// Import routes
+const userRoutes = require('./routers/userRoutes');
+
 const app = express();
 
 // Middleware
@@ -22,10 +25,8 @@ mongoose
     console.error('MongoDB connection error:', err);
   });
 
-// Define a simple route
-app.get('/', (req, res) => {
-  res.send('Welcome to the Notes App API!');
-});
+// Use user routes
+app.use('/api/users', userRoutes);
 
 // Run the server
 const PORT = process.env.PORT || 5000;
