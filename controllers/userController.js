@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const { isEmail } = require('validator');
 
 // Generate JWT token
 const generateToken = (userId) => {
@@ -15,7 +16,13 @@ console.log('secret', process.env.JWT_SECRET);
 const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
+    // Validate input
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'Please fill all fields' });
+    }
+    if (!isEmail(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
     // Check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {

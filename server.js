@@ -32,6 +32,11 @@ app.use('/api/users', userRoutes);
 const noteRoutes = require('./routers/noteRoutes');
 app.use('/api/notes', noteRoutes);
 
+// Error handling middleware
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+app.use(notFound);
+app.use(errorHandler);
+
 // Run the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -31,7 +31,7 @@ const getNotes = async (req, res) => {
 
 // Get Note By ID
 const getNote = async (req, res) => {
-  const id = req.param.id;
+  const id = req.params.id;
   try {
     const note = await Note.find({ _id: id });
     res.json(note);
@@ -42,7 +42,9 @@ const getNote = async (req, res) => {
 
 // Update Note
 const updateNote = async (req, res) => {
-  const id = req.param.id;
+  const id = req.params.id;
+  // console.log(id);
+
   try {
     const { title, content } = req.body;
     const note = await Note.findByIdAndUpdate(
@@ -63,7 +65,7 @@ const updateNote = async (req, res) => {
 
 // Delete Note
 const deleteNote = async (req, res) => {
-  const id = req.param.id;
+  const id = req.params.id;
   try {
     const note = await Note.findByIdAndDelete(id);
     if (!note || note.user.toString() !== req.user.id) {
